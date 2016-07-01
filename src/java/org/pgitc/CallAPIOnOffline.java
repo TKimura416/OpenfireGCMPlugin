@@ -25,7 +25,6 @@ import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.client.Invocation.Builder;
 import javax.ws.rs.core.Response;
 import java.io.File;
-import java.util.UUID;
 import java.util.concurrent.Future;
 
 public class CallAPIOnOffline implements Plugin, PacketInterceptor {
@@ -40,7 +39,7 @@ public class CallAPIOnOffline implements Plugin, PacketInterceptor {
     private Client client;
 
     public void initializePlugin(PluginManager pManager, File pluginDirectory) {
-        debug = JiveGlobals.getBooleanProperty("plugin.callback_on_offline.debug", false);
+        debug = JiveGlobals.getBooleanProperty("plugin.call_api_on_offline.debug", false);
         if (debug) {
             Log.debug("initialize CallAPIOnOffline plugin. Start.");
         }
@@ -50,7 +49,7 @@ public class CallAPIOnOffline implements Plugin, PacketInterceptor {
         userManager = XMPPServer.getInstance().getUserManager();
         client = ClientBuilder.newClient();
 
-        url = getProperty("plugin.callback_on_offline.url", "http://localhost/user/chat/sendpush");
+        url = getProperty("plugin.call_api_on_offline.url", "http://localhost/user/chat/sendpush");
 
         // register with interceptor manager
         interceptorManager.addInterceptor(this);
@@ -102,12 +101,12 @@ public class CallAPIOnOffline implements Plugin, PacketInterceptor {
 
                 if (!available) {
                     JID from = packet.getFrom();
-
+                    
                     WebTarget target = client.target(url)
                     		.queryParam("oppo_user_address", to.toBareJID())
-                    		.queryParam("from", from.toBareJID());
+                    		.queryParam("push_type", 1);
                     Builder builder = target.request()
-                    		.header(HttpHeaders.AUTHORIZATION, "Bearer " + "... encoded token ...");
+                    		.header(HttpHeaders.AUTHORIZATION, "Bearer " + "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0NjczNTAxMzMsImV4cCI6MjA5ODUwMjEzMywidXNlcl9pZCI6N30.pLKYBTa6-uRbsLj8_ktd-hcAmrcs2Vlt20iAY5izk1M");
 
                     if (debug) {
                         Log.debug("sending request to url='{}'", target);
