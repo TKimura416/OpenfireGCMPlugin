@@ -28,9 +28,9 @@ import java.io.File;
 import java.util.UUID;
 import java.util.concurrent.Future;
 
-public class CallbackOnOffline implements Plugin, PacketInterceptor {
+public class CallAPIOnOffline implements Plugin, PacketInterceptor {
 
-    private static final Logger Log = LoggerFactory.getLogger(CallbackOnOffline.class);
+    private static final Logger Log = LoggerFactory.getLogger(CallAPIOnOffline.class);
 
     private boolean debug;
     private String url;
@@ -42,7 +42,7 @@ public class CallbackOnOffline implements Plugin, PacketInterceptor {
     public void initializePlugin(PluginManager pManager, File pluginDirectory) {
         debug = JiveGlobals.getBooleanProperty("plugin.callback_on_offline.debug", false);
         if (debug) {
-            Log.debug("initialize CallbackOnOffline plugin. Start.");
+            Log.debug("initialize CallAPIOnOffline plugin. Start.");
         }
 
         interceptorManager = InterceptorManager.getInstance();
@@ -56,7 +56,7 @@ public class CallbackOnOffline implements Plugin, PacketInterceptor {
         interceptorManager.addInterceptor(this);
 
         if (debug) {
-            Log.debug("initialize CallbackOnOffline plugin. Finish.");
+            Log.debug("initialize CallAPIOnOffline plugin. Finish.");
         }
     }
 
@@ -74,7 +74,7 @@ public class CallbackOnOffline implements Plugin, PacketInterceptor {
         // unregister with interceptor manager
         interceptorManager.removeInterceptor(this);
         if (debug) {
-            Log.debug("destroy CallbackOnOffline plugin.");
+            Log.debug("destroy CallAPIOnOffline plugin.");
         }
     }
 
