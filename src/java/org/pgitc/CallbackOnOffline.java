@@ -1,4 +1,4 @@
-package com.fotsum;
+package org.pgitc;
 
 import org.jivesoftware.openfire.PresenceManager;
 import org.jivesoftware.openfire.XMPPServer;
